@@ -33,7 +33,19 @@ documents = [
 ]
 
 client = chromadb.Client()
-collection = client.create_collection(name="docs")
+
+# 嘗試取得已存在的 collection，如果不存在則創建新的
+try:
+    collection = client.create_collection(name="docs")
+except Exception as e:
+    if "Collection docs already exists" in str(e):
+        collection = client.get_collection(name="docs")
+    else:
+        raise e
+
+# 檢查每個文件 ID 是否已存在，如果存在則跳過新增操作
+existing_docs = collection.get()
+existing_ids = set(existing_docs['ids'])
 
 # store each document in a vector embedding database
 for i, d in enumerate(documents):
@@ -62,6 +74,7 @@ data = results['documents'][0][0]
 print(f"data: {data}")
 
 ollama.pull(model="llama2")
+
 # generate a response combining the prompt and data we retrieved in step 2
 output = ollama.generate(
   model="llama2",
