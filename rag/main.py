@@ -39,6 +39,7 @@ collection = client.create_collection(name="docs")
 for i, d in enumerate(documents):
   response = ollama.embeddings(model="mxbai-embed-large", prompt=d)
   embedding = response["embedding"]
+  print(f"embeddings: [{embedding}], documents: [{d}]")
   collection.add(
     ids=[str(i)],
     embeddings=[embedding],
