@@ -39,7 +39,7 @@ collection = client.create_collection(name="docs")
 for i, d in enumerate(documents):
   response = ollama.embeddings(model="mxbai-embed-large", prompt=d)
   embedding = response["embedding"]
-  print(f"embeddings: [{embedding}], documents: [{d}]")
+  # print(f"embeddings: [{embedding}], documents: [{d}]")
   collection.add(
     ids=[str(i)],
     embeddings=[embedding],
@@ -59,6 +59,7 @@ results = collection.query(
   n_results=1
 )
 data = results['documents'][0][0]
+print(f"data: {data}")
 
 ollama.pull(model="llama2")
 # generate a response combining the prompt and data we retrieved in step 2
