@@ -49,7 +49,7 @@ existing_ids = set(existing_docs['ids'])
 
 # store each document in a vector embedding database
 for i, d in enumerate(documents):
-  response = ollama.embeddings(model="mxbai-embed-large", prompt=d)
+  response = ollama.embeddings(model="llama3", prompt=d)
   embedding = response["embedding"]
   # print(f"embeddings: [{embedding}], documents: [{d}]")
   collection.add(
@@ -59,12 +59,12 @@ for i, d in enumerate(documents):
   )
 
 # an example prompt
-prompt = "Which animal is most related to '動物界,脊索動物門,哺乳綱,靈長目,人科,黑猩猩屬,黑猩猩' "
+prompt = "Which animal is most related to '動物界,脊索動物門,哺乳綱,靈長目,人科,黑猩猩屬,黑猩猩'?請以繁體中文回答 "
 
 # generate an embedding for the prompt and retrieve the most relevant doc
 response = ollama.embeddings(
   prompt=prompt,
-  model="mxbai-embed-large"
+  model="llama3"
 )
 results = collection.query(
   query_embeddings=[response["embedding"]],
@@ -73,11 +73,11 @@ results = collection.query(
 data = results['documents'][0][0]
 print(f"data: {data}")
 
-ollama.pull(model="llama2")
+ollama.pull(model="llama3")
 
 # generate a response combining the prompt and data we retrieved in step 2
 output = ollama.generate(
-  model="llama2",
+  model="llama3",
   prompt=f"Using this data: {data}. Respond to this prompt: {prompt}"
 )
 
