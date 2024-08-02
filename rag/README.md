@@ -155,4 +155,6 @@ For further assistance, please contact:
 
 <p id='ref'></p>
 
-Ref: [YungHuiHsu](https://hackmd.io/@YungHuiHsu)
+Ref:
+- [YungHuiHsu](https://hackmd.io/@YungHuiHsu)
+- [4 Advanced RAG Algorithms to Optimize Retrieval](https://www.comet.com/site/blog/advanced-rag-algorithms-optimize-retrieval/)
