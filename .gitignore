@@ -1,3 +1,4 @@
 venv/
 milvus/venv/*
 chromadb/
+sql.json
